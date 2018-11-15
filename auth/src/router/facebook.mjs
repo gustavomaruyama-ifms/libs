@@ -59,7 +59,7 @@ async function createUser(email) {
 
 const router = express.Router()
 
-router.get('/auth/facebook', passport.authenticate('facebook', { authType: 'rerequest', scope: ['email', 'name', 'picture'] }))
+router.get('/auth/facebook', passport.authenticate('facebook', { authType: 'rerequest', scope: ['email','public_profile'] }))
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook'), (req, res, next) => {
     if (req.user) {
