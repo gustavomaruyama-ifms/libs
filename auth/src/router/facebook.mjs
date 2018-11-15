@@ -1,6 +1,8 @@
+import express from 'express'
 import passport from 'passport'
 import facebook from 'passport-facebook'
 import UserEntity from '../business/entity/UserEntity.mjs'
+import Token from '../business/entity/Token.mjs'
 
 const options = {
     clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -49,4 +51,35 @@ async function createUser(email) {
     return createdUser
 }
 
-export default passport
+
+
+/**
+ * Rotas do facebook para depois que voltar do facebook a aplicação possa fazer ganha-lo um jwt token
+ */
+
+const router = express.Router()
+
+router.get('/auth/facebook', passport.authenticate('facebook', { authType: 'rerequest', scope: ['email', 'name', 'picture'] }))
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook'), (req, res, next) => {
+    if (req.user) {
+        return successFacebookLogin(res, req.user)
+    }
+    errorFacebookLogin(res)
+})
+
+function successFacebookLogin(res, user) {
+    const payload = {
+        id: user._id,
+        email: user.email,
+        timestamp: new Date()
+    }
+    const token = Token.create(payload)
+    res.redirect(`/callback?token=${token}`)
+}
+
+function errorFacebookLogin(res) {
+    res.redirect('/callback?error=FACEBOOK_ERROR')
+}
+
+export default router
