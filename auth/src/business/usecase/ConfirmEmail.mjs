@@ -8,7 +8,7 @@ export default class ConfirmEmail {
             const userData = Token.verify(params.token)
             await this.checkUserExist(userData)
             const cryptoPassword = await Encryption.hash(userData.password)
-            const userDataToSave = {email: userData.email, password: cryptoPassword}
+            const userDataToSave = {email: userData.email, password: cryptoPassword, source: 'internal'}
             const savedUser = await userRepository.save(userDataToSave)
             responder.success(savedUser)
         } catch (err) {
