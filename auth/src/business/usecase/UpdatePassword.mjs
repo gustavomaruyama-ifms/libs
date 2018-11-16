@@ -1,5 +1,7 @@
 import Encryption from '../entity/Encryption.mjs'
 import userRepository from '../../repository/UserRepository'
+import UserEntity from '../entity/UserEntity.mjs'
+import Token from '../entity/Token.mjs'
 
 export default class UpdatePassword {
     async execute(userData, responder) {
@@ -10,7 +12,9 @@ export default class UpdatePassword {
             }
             matchedUser.password = await Encryption.hash(userData.password)
             const updatedUser = await userRepository.save(matchedUser)
-            responder.success(updatedUser)
+            const payload = UserEntity.createPayload(updatedUser)
+            const token = Token.create(payload)
+            responder.success({token})
         } catch (err) {
             responder.error(err)
         }

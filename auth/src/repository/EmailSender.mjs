@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 
-class EmailRepository {
+class EmailSender {
     async send({from, to, subject, html, text, password}) {
         return new Promise((resolve, reject) => {
             let transporter = this.createTransport(from, password)
@@ -29,5 +29,5 @@ class EmailRepository {
     }
 }
 
-const emailRepository = new EmailRepository()
-export default emailRepository
+const emailSender = new EmailSender()
+export default emailSender

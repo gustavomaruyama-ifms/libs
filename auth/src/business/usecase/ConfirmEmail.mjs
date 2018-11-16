@@ -1,6 +1,7 @@
 import Token from '../entity/Token.mjs'
 import Encryption from '../entity/Encryption.mjs'
-import userRepository from '../../repository/UserRepository'
+import userRepository from '../../repository/UserRepository.mjs'
+import UserEntity from '../entity/UserEntity.mjs'
 
 export default class ConfirmEmail {
     async execute(params, responder) {
@@ -8,9 +9,11 @@ export default class ConfirmEmail {
             const userData = Token.verify(params.token)
             await this.checkUserExist(userData)
             const cryptoPassword = await Encryption.hash(userData.password)
-            const userDataToSave = {email: userData.email, password: cryptoPassword, source: 'internal'}
+            const userDataToSave = {name: userData.name, email: userData.email, password: cryptoPassword, source: 'internal'}
             const savedUser = await userRepository.save(userDataToSave)
-            responder.success(savedUser)
+            const payload = UserEntity.createPayload(savedUser)
+            const token = Token.create(payload)
+            responder.success({token})
         } catch (err) {
             responder.error(err)
         }

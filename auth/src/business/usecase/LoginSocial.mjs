@@ -1,15 +1,14 @@
-import Encryption from '../entity/Encryption.mjs'
 import Token from '../entity/Token.mjs'
 import UserEntity from '../entity/UserEntity.mjs'
 import userRepository from '../../repository/UserRepository'
 
-export default class Login {
+export default class LoginSocial {
     async execute(userData, responder) {
         try {
-            const matchedUser = await userRepository.findByEmail(userData.email)
-            const passwordIsCorrect = await Encryption.compare(userData.password, matchedUser.password)
-            if (!passwordIsCorrect) {
-                throw new Error('Wrong password')
+            let matchedUser = await userRepository.findByEmail(userData.email)
+            if (!matchedUser) {
+                const userDataToSave = {name: userData.name, email: userData.email, source: userData.source}
+                matchedUser = await userRepository.save(userDataToSave)
             }
             const payload = UserEntity.createPayload(matchedUser)
             const token = Token.create(payload)
