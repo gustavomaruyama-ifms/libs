@@ -12,7 +12,7 @@ export default class LoginSocial {
             }
             const payload = UserEntity.createPayload(matchedUser)
             const token = Token.create(payload)
-            responder.success({token})
+            responder.success({token, payload})
         } catch (err) {
             responder.unauthorized()
         }

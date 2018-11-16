@@ -17,11 +17,11 @@ function getEmail(profile) {
 }
 
 function getPhoto(profile) {
-    return (profile.picture) ? profile.picture : null
+    return (profile.photos && profile.photos[0]) ? profile.photos[0].value : null
 }
 
 function getName(profile) {
-    return (profile.name) ? `${profile.name.firstName} ${profile.name.lastName}` : null
+    return (profile.name) ? `${profile.name.givenName} ${profile.name.familyName}` : null
 }
 
 passport.use(new facebook.Strategy(options, async (accessToken, refreshToken, profile, cb) => {

@@ -13,7 +13,7 @@ export default class ConfirmEmail {
             const savedUser = await userRepository.save(userDataToSave)
             const payload = UserEntity.createPayload(savedUser)
             const token = Token.create(payload)
-            responder.success({token})
+            responder.success({token, payload})
         } catch (err) {
             responder.error(err)
         }

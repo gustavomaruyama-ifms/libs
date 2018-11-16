@@ -14,7 +14,7 @@ export default class UpdatePassword {
             const updatedUser = await userRepository.save(matchedUser)
             const payload = UserEntity.createPayload(updatedUser)
             const token = Token.create(payload)
-            responder.success({token})
+            responder.success({token, payload})
         } catch (err) {
             responder.error(err)
         }
