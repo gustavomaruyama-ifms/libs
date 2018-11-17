@@ -14,6 +14,6 @@ export default class Responder {
     }
 
     unauthorized() {
-        this.res.sendStatus(401)
+        this.res.sendStatus(401, err)
     }
 }

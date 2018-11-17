@@ -12,8 +12,11 @@ export default class ForgetPassword {
     async execute(email, responder) {
         try {
             const userData = await userRepository.findByEmail(email)
-            if (userData) {
-                throw new Error('This email was registered before')
+            if (!userData) {
+                throw new Error('EMAIL_NOT_EXISTS')
+            }
+            if (userData.source !== 'internal') {
+                throw new Error('CANOT_CHANGE_USER_FROM_SOCIAL_NETWORK')
             }
             const token = Token.create({email})
             const template = await templateRepository.findByName(TEMPLATE_NAME)

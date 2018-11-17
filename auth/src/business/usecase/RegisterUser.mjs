@@ -23,7 +23,7 @@ export default class RegisterUser {
     async checkUserExist(userData) {
         const matchedUser = await userRepository.findByEmail(userData.email)
         if (matchedUser) {
-            throw new Error('This email was registered before')
+            throw new Error('DUPLICATE_REGISTER')
         }
     }
 }

@@ -22,7 +22,7 @@ export default class ConfirmEmail {
     async checkUserExist(userData) {
         const matchedUser = await userRepository.findByEmail(userData.email)
         if (matchedUser) {
-            throw new Error('This email was registered before')
+            throw new Error('EMAIL_NOT_EXISTS')
         }
     }
 }

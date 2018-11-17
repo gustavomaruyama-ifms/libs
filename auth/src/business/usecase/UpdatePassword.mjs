@@ -8,7 +8,7 @@ export default class UpdatePassword {
         try {
             const matchedUser = await userRepository.findByEmail(userData.email)
             if (!matchedUser) {
-                throw new Error('Email not exist')
+                throw new Error('EMAIL_NOT_EXISTS')
             }
             matchedUser.password = await Encryption.hash(userData.password)
             const updatedUser = await userRepository.save(matchedUser)
