@@ -10,15 +10,13 @@ export default class Responder {
     }
 
     error(err) {
-        this.res.sendStatus(500, err)
+        err.status = 500
+        this.next(err)
     }
 
-    notFound() {
-        this.res.sendStatus(404)
-    }
-
-    unauthorized() {
-        this.res.sendStatus(401)
+    notFound(err) {
+        err.status = 404
+        this.next(err)
     }
 
     fileStream(filedata, filestream) {

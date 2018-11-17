@@ -1,6 +1,6 @@
 {
     "name": "@codate/file",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "description": "File management library",
     "author": "Charles Viegas <charles.viegas@codate.com.br>",
     "private": false,

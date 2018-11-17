@@ -20,9 +20,11 @@ export default class GetFile {
                     responder.fileStream(filedata, filestream)
                 }
             } else {
-                responder.notFound()
+                const err = {message: 'FILE_NOT_FOUND'}
+                responder.notFound(err)
             }
         } catch (err) {
+            err.message = 'FILE_CORRUPTED'
             responder.error(err)
         }
     }

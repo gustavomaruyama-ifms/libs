@@ -11,9 +11,11 @@ export default class RemoveFile {
                 await fileRepository.removeFile(filename)
                 responder.success({filename, removed: true})
             } else {
-                responder.notFound()
+                const err = {message: 'FILE_NOT_FOUND'}
+                responder.notFound(err)
             }
         } catch (err) {
+            err.message = 'FILE_CORRUPTED'
             responder.error(err)
         }
     }

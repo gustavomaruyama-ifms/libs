@@ -16,6 +16,7 @@ export default class CreateFile {
             }
             responder.success(originalFileData)
         } catch (err) {
+            err.message = 'CANOT_CREATE_THUMBNAL'
             responder.error(err)
         }
     }

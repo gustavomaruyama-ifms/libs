@@ -10,10 +10,12 @@ export default class Responder {
     }
 
     error(err) {
-        this.res.sendStatus(500, err)
+        err.status = 500
+        this.next(err)
     }
 
     unauthorized() {
-        this.res.sendStatus(401, err)
+        err.status = 401
+        this.next(err)
     }
 }
