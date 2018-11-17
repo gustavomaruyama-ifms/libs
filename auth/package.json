@@ -1,6 +1,6 @@
 {
   "name": "@codate/auth",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Authentication microservice",
   "author": "Charles Viegas <charles.viegas@codate.com.br>",
   "private": false,

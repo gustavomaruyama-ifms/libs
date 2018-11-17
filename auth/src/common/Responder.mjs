@@ -14,7 +14,7 @@ export default class Responder {
         this.next(err)
     }
 
-    unauthorized() {
+    unauthorized(err) {
         err.status = 401
         this.next(err)
     }
