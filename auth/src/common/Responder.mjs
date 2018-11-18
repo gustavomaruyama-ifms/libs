@@ -14,6 +14,11 @@ export default class Responder {
         this.next(err)
     }
 
+    notFound(err) {
+        err.status = 404
+        this.next(err)
+    }
+
     unauthorized(err) {
         err.status = 401
         this.next(err)

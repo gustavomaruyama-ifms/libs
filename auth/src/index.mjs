@@ -6,8 +6,9 @@ import loginFacebook from './router/loginFacebook.mjs'
 import register from './router/register.mjs'
 import updatePassword from './router/updatePassword.mjs'
 import verifyToken from './router/verifyToken.mjs'
+import getUser from './router/getUser.mjs'
 
 import './router/jwt.mjs'
 import './router/facebook.mjs'
 
-export {confirm, exists, forgetPassword, login, loginFacebook, register, updatePassword, verifyToken}
+export {confirm, exists, forgetPassword, login, loginFacebook, register, updatePassword, verifyToken, getUser}

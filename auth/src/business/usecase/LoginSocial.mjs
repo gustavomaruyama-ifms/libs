@@ -14,7 +14,7 @@ export default class LoginSocial {
             const token = Token.create(payload)
             responder.success({token, payload})
         } catch (err) {
-            responder.unauthorized()
+            responder.unauthorized(err)
         }
     }
 }
